@@ -16,4 +16,6 @@ public interface BaseService<T> {
 
     boolean existsById(int id);
 
+    boolean existsByName(String name);
+
 }

@@ -1,4 +1,4 @@
-package com.example.animals.exception;
+package com.example.animals.except_handler;
 
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
@@ -17,7 +17,6 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
@@ -32,33 +31,27 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
                 .stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
-        Map<String, Object> body = createBody("@Valid error. More details in the response body.", status, errors);
+        Map<String, Object> body = createBody("@Valid error, more details in the errors block", status, errors);
         return handleExceptionInternal(ex, body, headers, status, request);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException ex, HttpHeaders headers, WebRequest request) {
+    public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException ex, WebRequest request) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
+
         List<String> errors = new ArrayList<>();
         for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
             errors.add(violation.getMessage());
         }
-        Map<String, Object> body = createBody("@Validated error. More details in the response body.", status, errors);
-        return handleExceptionInternal(ex, body, headers, status, request);
-    }
-
-    @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<Object> resourceNotFoundException(NoSuchElementException ex, HttpHeaders headers, WebRequest request) {
-        HttpStatus status = HttpStatus.NOT_FOUND;
-        Map<String, Object> body = createBody("Database entry not found", status, null);
-        return handleExceptionInternal(ex, body, headers, status, request);
+        Map<String, Object> body = createBody("@Validated error, more details in the errors block", status, errors);
+        return handleExceptionInternal(ex, body, new HttpHeaders(), status, request);
     }
 
     private Map<String, Object> createBody(String exceptDescription, HttpStatus status, List<String> errors) {
         Map<String, Object> body = new LinkedHashMap<>();
-        body.put("exceptDescription", exceptDescription);
-        body.put("timestamp", new Date());
         body.put("status", status.value());
+        body.put("timestamp", new Date());
+        body.put("exceptDescription", exceptDescription);
         body.put("errors", errors);
         return body;
     }

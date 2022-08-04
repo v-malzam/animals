@@ -2,7 +2,9 @@ package com.example.animals.controller;
 
 import com.example.animals.model.Animal;
 import com.example.animals.service.BaseService;
-import com.example.animals.validation.IdExistsInDb;
+import com.example.animals.validation.annotation.IdExistsInDb;
+import com.example.animals.validation.group.Create;
+import com.example.animals.validation.group.Update;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
@@ -36,27 +37,25 @@ public class AnimalController {
 
     @GetMapping("{id}")
     public Animal getById(
-            @NotNull(message = "Request must include a Animal id")
-            @IdExistsInDb(typeObject = "Animal", message = "This Animal id is not in the database")
+            @IdExistsInDb(message = "This Course id is not in the database")
             @PathVariable Integer id) {
         return animalService.getById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Animal add(@RequestBody Animal animal) {
+    public Animal add(@Validated(Create.class) @RequestBody Animal animal) {
         return animalService.create(animal);
     }
 
     @PutMapping
-    public Animal update(@RequestBody Animal animal) {
+    public Animal update(@Validated(Update.class) @RequestBody Animal animal) {
         return animalService.update(animal);
     }
 
     @DeleteMapping("{id}")
     public void delete(
-            @NotNull(message = "Request must include a Animal id")
-            @IdExistsInDb(typeObject = "Animal", message = "This Animal id is not in the database")
+            @IdExistsInDb(message = "This Course id is not in the database")
             @PathVariable Integer id) {
         animalService.deleteById(id);
     }

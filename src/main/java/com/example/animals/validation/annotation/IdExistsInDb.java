@@ -1,4 +1,6 @@
-package com.example.animals.validation;
+package com.example.animals.validation.annotation;
+
+import com.example.animals.validation.validator.IdExistsInDbValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -15,9 +17,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = IdExistsInDbValidator.class)
 public @interface IdExistsInDb {
 
-    String typeObject();
-
-    String message() default "Id not found in database";
+    String message() default "ID not found in database";
 
     Class<?>[] groups() default {};
 

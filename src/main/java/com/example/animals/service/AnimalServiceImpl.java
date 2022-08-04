@@ -45,4 +45,9 @@ public class AnimalServiceImpl implements BaseService<Animal> {
         return animalRepository.existsById(id);
     }
 
+    @Override
+    public boolean existsByName(String name) {
+        return animalRepository.existsByName(name);
+    }
+
 }
