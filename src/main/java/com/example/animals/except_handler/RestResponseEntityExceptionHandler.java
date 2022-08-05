@@ -46,20 +46,26 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
         List<String> errors = new ArrayList<>();
         for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
-            String errorCode = violation.getMessage();
-            String errorDescript = resources.getMessage(errorCode, null, null);
-            errors.add("Error code = " + errorCode +": "+ errorDescript);
+            errors.add(violation.getMessage());
         }
+
         Map<String, Object> body = createBody("@Validated error, more details in the errors block", status, errors);
         return handleExceptionInternal(ex, body, new HttpHeaders(), status, request);
     }
 
     private Map<String, Object> createBody(String exceptDescription, HttpStatus status, List<String> errors) {
+
+        List<String> errorCodeAndDescript = new ArrayList<>();
+        for (String error : errors){
+            String errorDescript = resources.getMessage(error, null, null);
+            errorCodeAndDescript.add("Error code = " + error +": "+ errorDescript);
+        }
+
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("status", status.value());
         body.put("timestamp", new Date());
         body.put("exceptDescription", exceptDescription);
-        body.put("errors", errors);
+        body.put("errors", errorCodeAndDescript);
         return body;
     }
 }

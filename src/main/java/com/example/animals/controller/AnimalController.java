@@ -2,7 +2,7 @@ package com.example.animals.controller;
 
 import com.example.animals.model.Animal;
 import com.example.animals.service.BaseService;
-import com.example.animals.validation.annotation.IdExistsInDb;
+import com.example.animals.validation.IdExistsInDb;
 import com.example.animals.validation.group.Create;
 import com.example.animals.validation.group.Update;
 import org.springframework.http.HttpStatus;

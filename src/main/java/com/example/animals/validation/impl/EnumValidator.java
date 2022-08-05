@@ -1,6 +1,6 @@
-package com.example.animals.validation.validator;
+package com.example.animals.validation.impl;
 
-import com.example.animals.validation.annotation.Enum;
+import com.example.animals.validation.Enum;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

@@ -1,8 +1,8 @@
-package com.example.animals.validation.validator;
+package com.example.animals.validation.impl;
 
 import com.example.animals.model.Animal;
 import com.example.animals.service.BaseService;
-import com.example.animals.validation.annotation.DoubleNameInDb;
+import com.example.animals.validation.DoubleNameInDb;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

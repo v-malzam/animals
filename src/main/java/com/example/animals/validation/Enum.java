@@ -1,6 +1,6 @@
-package com.example.animals.validation.annotation;
+package com.example.animals.validation;
 
-import com.example.animals.validation.validator.DoubleNameInDbValidator;
+import com.example.animals.validation.impl.EnumValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -14,12 +14,15 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
 @Documented
-@Constraint(validatedBy = DoubleNameInDbValidator.class)
-public @interface DoubleNameInDb {
+@Constraint(validatedBy = EnumValidator.class)
+public @interface Enum {
 
-    String message() default "6";
+    Class<? extends java.lang.Enum<?>> enumClass();
+
+    String message() default "must be any of enum {enumClass}";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
+
 }

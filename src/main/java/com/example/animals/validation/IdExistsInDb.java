@@ -1,6 +1,6 @@
-package com.example.animals.validation.annotation;
+package com.example.animals.validation;
 
-import com.example.animals.validation.validator.EnumValidator;
+import com.example.animals.validation.impl.IdExistsInDbValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -14,15 +14,12 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
 @Documented
-@Constraint(validatedBy = EnumValidator.class)
-public @interface Enum {
+@Constraint(validatedBy = IdExistsInDbValidator.class)
+public @interface IdExistsInDb {
 
-    Class<? extends java.lang.Enum<?>> enumClass();
-
-    String message() default "must be any of enum {enumClass}";
+    String message() default "1";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
-
 }

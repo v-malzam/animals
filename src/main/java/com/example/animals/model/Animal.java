@@ -1,8 +1,8 @@
 package com.example.animals.model;
 
-import com.example.animals.validation.annotation.DoubleNameInDb;
-import com.example.animals.validation.annotation.Enum;
-import com.example.animals.validation.annotation.IdExistsInDb;
+import com.example.animals.validation.DoubleNameInDb;
+import com.example.animals.validation.Enum;
+import com.example.animals.validation.IdExistsInDb;
 import com.example.animals.validation.group.Create;
 import com.example.animals.validation.group.Update;
 import lombok.AllArgsConstructor;
