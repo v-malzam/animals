@@ -31,26 +31,26 @@ public class Animal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Null(groups = {Create.class}, message = "The POST request must not contain an ID")
-    @NotNull(groups = {Update.class}, message = "The PUT request must contain an ID")
+    @Null(groups = {Create.class}, message = "2")
+    @NotNull(groups = {Update.class}, message = "3")
     @IdExistsInDb(groups = {Update.class})
     private Integer id;
 
-    @NotNull(groups = {Create.class, Update.class}, message = "Request must include a name")
-    @Size(groups = {Create.class, Update.class}, min = 2, max = 30, message = "Name should contain from 2 to 30 letters")
+    @NotNull(groups = {Create.class, Update.class}, message = "4")
+    @Size(groups = {Create.class, Update.class}, min = 2, max = 30, message = "5")
     @DoubleNameInDb(groups = {Create.class, Update.class})
     private String name;
 
-    @NotNull(groups = {Create.class, Update.class}, message = "NotNull")
-    @Enum(groups = {Create.class, Update.class}, enumClass = Gender.class, message = "GenderEnum")
+    @NotNull(groups = {Create.class, Update.class}, message = "7")
+    @Enum(groups = {Create.class, Update.class}, enumClass = Gender.class, message = "8")
     private String gender;
 
-    @NotNull(groups = {Create.class, Update.class}, message = "Request must include a name")
-    @PastOrPresent(groups = {Create.class, Update.class}, message = "PastOrPresent")
+    @NotNull(groups = {Create.class, Update.class}, message = "9")
+    @PastOrPresent(groups = {Create.class, Update.class}, message = "10")
     private LocalDate dateOfBirth;
 
-    @NotNull(groups = {Create.class, Update.class}, message = "NotNull")
-    @Enum(groups = {Create.class, Update.class}, enumClass = AnimalType.class, message = "AnimalTypeEnum")
+    @NotNull(groups = {Create.class, Update.class}, message = "11")
+    @Enum(groups = {Create.class, Update.class}, enumClass = AnimalType.class, message = "12")
     private String type;
 
 }

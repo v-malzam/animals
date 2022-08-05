@@ -17,7 +17,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = IdExistsInDbValidator.class)
 public @interface IdExistsInDb {
 
-    String message() default "ID not found in database";
+    String message() default "1";
 
     Class<?>[] groups() default {};
 

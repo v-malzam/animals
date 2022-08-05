@@ -1,5 +1,7 @@
 package com.example.animals.except_handler;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,6 +24,9 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
+    @Autowired
+    MessageSource resources;
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -41,7 +46,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
         List<String> errors = new ArrayList<>();
         for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
-            errors.add(violation.getMessage());
+            String errorCode = violation.getMessage();
+            String errorDescript = resources.getMessage(errorCode, null, null);
+            errors.add("Error code = " + errorCode +": "+ errorDescript);
         }
         Map<String, Object> body = createBody("@Validated error, more details in the errors block", status, errors);
         return handleExceptionInternal(ex, body, new HttpHeaders(), status, request);

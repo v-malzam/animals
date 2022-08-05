@@ -17,7 +17,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = DoubleNameInDbValidator.class)
 public @interface DoubleNameInDb {
 
-    String message() default "Double Name found in database";
+    String message() default "6";
 
     Class<?>[] groups() default {};
 

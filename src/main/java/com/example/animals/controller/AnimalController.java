@@ -37,7 +37,7 @@ public class AnimalController {
 
     @GetMapping("{id}")
     public Animal getById(
-            @IdExistsInDb(message = "This Course id is not in the database")
+            @IdExistsInDb
             @PathVariable Integer id) {
         return animalService.getById(id);
     }
@@ -55,7 +55,7 @@ public class AnimalController {
 
     @DeleteMapping("{id}")
     public void delete(
-            @IdExistsInDb(message = "This Course id is not in the database")
+            @IdExistsInDb
             @PathVariable Integer id) {
         animalService.deleteById(id);
     }
